@@ -3,6 +3,7 @@
 <div align="center">
   <strong>Make a cheap but powerful USB Rubber Ducky with a Raspberry Pi Pico</strong>
 </div>
+See it in action [here](https://wokwi.com/projects/340275768135254611)!
 
 <br />
 
