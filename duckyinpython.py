@@ -161,76 +161,31 @@ def runScript(file):
         print("Unable to open file ", file)
 
 def selectPayload():
-    payload = "payload.dd"
+    # Special thanks to todbot on simplifying this code for me! https://github.com/todbot/circuitpython-tricks/issues/8
     # check switch status
-    # rotary1 = GPIO2 to GND
-    # rotary2 = GPIO3 to GND
-    # rotary4 = GPIO4 to GND
-    # rotary8 = GPIO5 to GND
-    rotary1Pin = digitalio.DigitalInOut(GP2)
-    rotary1Pin.switch_to_input(pull=digitalio.Pull.UP)
-    rotary1State = not rotary1Pin.value
-    rotary2Pin = digitalio.DigitalInOut(GP3)
-    rotary2Pin.switch_to_input(pull=digitalio.Pull.UP)
-    rotary2State = not rotary2Pin.value
-    rotary4Pin = digitalio.DigitalInOut(GP4)
-    rotary4Pin.switch_to_input(pull=digitalio.Pull.UP)
-    rotary4State = not rotary4Pin.value
-    rotary8Pin = digitalio.DigitalInOut(GP5)
-    rotary8Pin.switch_to_input(pull=digitalio.Pull.UP)
-    rotary8State = not rotary8Pin.value
+    # rotaryDip pin1 = GPIO2
+    # rotaryDip pin2 = GPIO3
+    # rotaryDip pin4 = GPIO4
+    # rotaryDip pin8 = GPIO5
+    payload = "payload.dd"
+    dip_pins = (GP2, GP3, GP4, GP5)
 
+    dip = []  # make the pin objects, stick them in 'dip'
+    for p in dip_pins:
+        d = digitalio.DigitalInOut(p)
+        d.switch_to_input(digitalio.Pull.UP)
+        dip.append(d)
 
-    if rotary1State == True and rotary2State == False and rotary4State == False and rotary8State == False:
-        payload = "payload1.dd"
+    def get_dip_val(dip):
+        val = 0  # our return value
+        for i in range(len(dip)):
+            if dip[i].value == False:
+                val |= (1 << i)  # set the bit in val if that dip switch is set
+        return val
 
-    elif rotary1State == False and rotary2State == True and rotary4State == False and rotary8State == False:
-        payload = "payload2.dd"
-
-    elif rotary1State == True and rotary2State == True and rotary4State == False and rotary8State == False:
-        payload = "payload3.dd"
-
-    elif rotary1State == False and rotary2State == False and rotary4State == True and rotary8State == False:
-        payload = "payload4.dd"
+    val = get_dip_val(dip)
+    payload = "payload%d.dd" % val
     
-    elif rotary1State == True and rotary2State == False and rotary4State == True and rotary8State == False:
-        payload = "payload5.dd"
-
-    elif rotary1State == False and rotary2State == True and rotary4State == True and rotary8State == False:
-        payload = "payload6.dd"
-        
-    elif rotary1State == True and rotary2State == True and rotary4State == True and rotary8State == False:
-        payload = "payload7.dd"
-
-    elif rotary1State == False and rotary2State == False and rotary4State == False and rotary8State == True:
-        payload = "payload8.dd"
-
-    elif rotary1State == True and rotary2State == False and rotary4State == False and rotary8State == True:
-        payload = "payload9.dd"
-        
-    elif rotary1State == False and rotary2State == True and rotary4State == False and rotary8State == True:
-        payload = "payload10.dd"
-        
-    elif rotary1State == True and rotary2State == True and rotary4State == False and rotary8State == True:
-        payload = "payload11.dd"
-        
-    elif rotary1State == False and rotary2State == False and rotary4State == True and rotary8State == True:
-        payload = "payload12.dd"
-        
-    elif rotary1State == True and rotary2State == False and rotary4State == True and rotary8State == True:
-        payload = "payload13.dd"
-        
-    elif rotary1State == False and rotary2State == True and rotary4State == True and rotary8State == True:
-        payload = "payload14.dd"
-
-    elif rotary1State == True and rotary2State == True and rotary4State == True and rotary8State == True:
-        payload = "payload15.dd"
-
-    else:
-        # if all pins are high, then no switch is present
-        # default to payload
-        payload = "payload.dd"
-
     return payload
 
 progStatus = False
@@ -254,4 +209,3 @@ while True:
     else:
         led_pwm_down(led)
         led_state = True
-    
