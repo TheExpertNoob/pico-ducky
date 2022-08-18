@@ -1,9 +1,9 @@
 <h1 align="center">pico-ducky</h1>
 
 <div align="center">
-  <strong>Make a cheap but powerful USB Rubber Ducky with a Raspberry Pi Pico</strong>
+  <strong>Make a cheap but powerful USB Rubber Ducky with a Raspberry Pi Pico</strong> <br />
+  See it in action <a href="https://wokwi.com/projects/340275768135254611">here</a>!
 </div>
-See it in action [here](https://wokwi.com/projects/340275768135254611)!
 
 <br />
 
