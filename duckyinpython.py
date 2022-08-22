@@ -1,6 +1,7 @@
 # License : GPLv2.0
 # copyright (c) 2021  Dave Bailey
-# Author: Dave Bailey (dbisu, @daveisu)
+# Original Author: Dave Bailey (dbisu, @daveisu)
+# Modified by TheExpertNoob for 16 payloads.
 
 import usb_hid
 from adafruit_hid.keyboard import Keyboard
@@ -131,7 +132,7 @@ led_pwm_up(led)
 def getProgrammingStatus():
     # check GP0 for setup mode
     # see setup mode for instructions
-    progStatusPin = digitalio.DigitalInOut(GP9)
+    progStatusPin = digitalio.DigitalInOut(GP1)
     progStatusPin.switch_to_input(pull=digitalio.Pull.UP)
     progStatus = not progStatusPin.value
     return(progStatus)
@@ -161,14 +162,13 @@ def runScript(file):
         print("Unable to open file ", file)
 
 def selectPayload():
-    # Special thanks to todbot on simplifying this code for me! https://github.com/todbot/circuitpython-tricks/issues/8
-    # check switch status
-    # rotaryDip pin1 = GPIO2
-    # rotaryDip pin2 = GPIO3
-    # rotaryDip pin4 = GPIO4
-    # rotaryDip pin8 = GPIO5
-    payload = "payload.dd"
-    dip_pins = (GP2, GP3, GP4, GP5)
+    # check switch location
+    # rotaryDip pin1 = GPIO13
+    # rotaryDip pin2 = GPIO17
+    # rotaryDip pin4 = GPIO14
+    # rotaryDip pin8 = GPIO18
+    payload = "payload0.dd"
+    dip_pins = (GP13, GP17, GP14, GP18)
 
     dip = []  # make the pin objects, stick them in 'dip'
     for p in dip_pins:
@@ -184,7 +184,10 @@ def selectPayload():
         return val
 
     val = get_dip_val(dip)
-    payload = "payload%d.dd" % val
+    if val == 0:
+        payload = "payload.dd"
+    else:
+        payload = "payload%d.dd" % val
     
     return payload
 

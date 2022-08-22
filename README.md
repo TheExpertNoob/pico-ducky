@@ -2,7 +2,7 @@
 
 <div align="center">
   <strong>Make a cheap but powerful USB Rubber Ducky with a Raspberry Pi Pico</strong> <br />
-  See it in action <a href="https://wokwi.com/projects/340275768135254611">here</a>!
+  See it in action <a href="https://wokwi.com/projects/340458441283732050">here</a>!
 </div>
 
 <br />
@@ -33,38 +33,27 @@ Install and have your USB Rubber Ducky working in less than 5 minutes.
 
 6. Click [here](https://raw.githubusercontent.com/TheExpertNoob/pico-ducky/main/duckyinpython.py), press CTRL + S and save the file as `code.py` in the root of the Raspberry Pi Pico, overwriting the previous file.
 
-7. Find a script [here](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payloads) or [create your own one using Ducky Script](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript) and save it as `payload0.dd` in the Pico.
+7. Find a script [here](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payloads) or [create your own one using Ducky Script](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Duckyscript) and save it as `payload.dd` in the Pico.
 
 8. Be careful, if your device isn't in [setup mode](#setup-mode), the device will reboot and after half a second, the script will run.
 
-### Setup mode
-
-To edit the payload, enter setup mode by connecting the pin 12 (`GP9`) to pin 13 (`GND`), this will stop the pico-ducky from injecting the payload in your own machine.
-The easiest way to so is by using a jumper wire between those pins as seen bellow.
-
-![Setup mode with a jumper](images/setup-mode.png)
-
-### USB enable/disable mode
-
-If you need the pico-ducky to not show up as a USB mass storage device for stealth, follow these instructions.  
+### Toggle setup and payload mode as well as Payload Selector, now with 16 options!
+  
+![Pinout wiring](images/Pico-ducky-config.png)  
+Wire up the pico duck as shown above. The SPDT switch can be soldered directly to pins 2-4 (GP1, GND, GP2).  
+  
+To edit the payload(setup mode), flip the switch towards the USB, this will stop the pico-ducky from injecting the payload in your own machine.  
+  
+To get the pico-ducky to not show up as a USB mass storage device for stealth, follow these instructions.  
 Enter setup mode.  
 Copy boot.py to the root of the pico-ducky.  
 Copy your payload script to the pico-ducky.  
-Disconnect the pico from your host PC.
-Connect a jumper wire between pin 13 (`GND`) and pin 14 (`GP10`).
-This will prevent the pico-ducky from showing up as a USB drive when plugged into the target computer.  
-Remove the jumper and reconnect to your PC to reprogram.
-The default mode is USB mass storage enabled.   
-
-![USB enable/disable mode](images/usb-boot-mode.png)
-
-### Payload Selector, now with 16 options!
+Disconnect the pico from your host PC.  
+Toggle the SPDT switch away from the USB to enable the payload and prevent the pico-ducky from showing up as a USB drive when plugged into the target computer.  
 
 You will need a rotary dip switch [like this one](https://www.digikey.com/en/products/detail/nidec-copal-electronics/SH-7050MC/2057879).  
-Wire it as shown below. LSB is GP2, MSB is GP5.  
-Payload options are payload0.dd (as default or if you dont install a switch) and payload(`1-15`).dd  
-
-![Payload Selection](images/payload-options.png)
+Wire it as shown above. LSB to MSB is as follows `GP13`, `GP17`, `GP14`, `GP18`.  
+Payload options are `payload.dd` (as default or if you dont install a switch) and payload(`1-15`).dd  
 
 TODO: revert to payload.dd if no file exists.  
 Now, it just does nothing.  
