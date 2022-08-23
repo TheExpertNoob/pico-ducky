@@ -58,6 +58,8 @@ Payload options are `payload.dd` (as default or if you dont install a switch) an
 TODO: revert to payload.dd if no file exists.  
 Now, it just does nothing.  
 
+Additional images in the `images` folder.  
+
 ### Changing Keyboard Layouts
 
 Copied from [Neradoc/Circuitpython_Keyboard_Layouts](https://github.com/Neradoc/Circuitpython_Keyboard_Layouts/blob/main/PICODUCKY.md)  
