@@ -2,7 +2,8 @@
 
 <div align="center">
   <strong>Make a cheap but powerful USB Rubber Ducky with a Raspberry Pi Pico</strong> <br />
-  See it in action <a href="https://wokwi.com/projects/340458441283732050">here</a>!
+  See it in action <a href="https://wokwi.com/projects/340458441283732050">here</a>! <br />
+  Compact Board <a href="https://oshpark.com/shared_projects/AmtPQ0o6">here</a>!
 </div>
 
 <br />
